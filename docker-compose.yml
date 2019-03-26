@@ -2,14 +2,14 @@ version: '2'
 
 volumes:
   nextcloud:
-  db:
+  nextcloud-db:
 
 services:
-  db:
-    image: mariadb
+  nextcloud-db:
+    image: mysql:8
     restart: always
     volumes:
-      - db:/var/lib/mysql
+      - nextcloud-db:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=N3xtCl0ud!
       - MYSQL_PASSWORD=nextcloud
@@ -17,11 +17,11 @@ services:
       - MYSQL_USER=nextcloud
 
   app:
-    image: nextcloud
+    image: nextcloud:stable-apache
     ports:
       - 8081:80
     links:
-      - db
+      - nextcloud-db
     volumes:
       - nextcloud:/var/www/html
     restart: always
