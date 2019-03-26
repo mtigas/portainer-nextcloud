@@ -1,9 +1,16 @@
-version: '2'
+version: '2.1'
+
+networks:
+  nclan:
 
 services:
-  nextcloud-db:
+  db:
     image: postgres:11
     restart: always
+    networks:
+      nclan:
+        aliases:
+        - ncdb
     volumes:
       - /var/mtigas-custom/nextcloud/db:/var/lib/postgresql
     environment:
@@ -16,8 +23,10 @@ services:
     image: nextcloud:stable-apache
     ports:
       - 8081:80
-    links:
-      - nextcloud-db
+    networks:
+      nclan:
+        aliases:
+        - ncapp
     volumes:
       - /var/mtigas-custom/nextcloud/app:/var/www/html
     restart: always
