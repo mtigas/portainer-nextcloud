@@ -1,8 +1,5 @@
 version: '2'
 
-networks:
-  nclan:
-
 services:
   db:
     image: postgres:11
