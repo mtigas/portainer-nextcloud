@@ -1,20 +1,15 @@
 version: '2'
 
-volumes:
-  nextcloud:
-  nextcloud-db:
-
 services:
   nextcloud-db:
-    image: mysql:8
+    image: postgres:11
     restart: always
     volumes:
-      - nextcloud-db:/var/lib/mysql
+      - /var/mtigas-custom/nextcloud/db:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=N3xtCl0ud!
-      - MYSQL_PASSWORD=nextcloud
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=nextcloud
+      - POSTGRES_PASSWORD=nextcloud
+      - POSTGRES_DATABASE=nextcloud
+      - POSTGRES_USER=nextcloud
 
   app:
     image: nextcloud:stable-apache
@@ -23,5 +18,5 @@ services:
     links:
       - nextcloud-db
     volumes:
-      - nextcloud:/var/www/html
+      - /var/mtigas-custom/nextcloud/app:/var/www/html
     restart: always
