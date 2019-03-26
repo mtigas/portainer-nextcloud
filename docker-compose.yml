@@ -5,7 +5,7 @@ services:
     image: postgres:11
     restart: always
     volumes:
-      - /var/mtigas-custom/nextcloud/db:/var/lib/mysql
+      - /var/mtigas-custom/nextcloud/db:/var/lib/postgresql
     environment:
       - POSTGRES_PASSWORD=nextcloud
       - POSTGRES_DATABASE=nextcloud
